@@ -34,7 +34,7 @@ void allocator_init(allocator_index_t size,allocator_t* out);
 
 
 
-void* allocator_get(allocator_t* allocator,allocator_key_t key);
+void* allocator_get(allocator_t* allocator,allocator_key_t key,void** out);
 
 
 

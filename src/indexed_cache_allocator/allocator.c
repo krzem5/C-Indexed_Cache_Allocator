@@ -22,13 +22,13 @@ void allocator_init(allocator_index_t size,allocator_t* out){
 		(out->nodes+i)->value=NULL;
 		(out->nodes+i)->key_at_index=i;
 		(out->nodes+i)->prev=i-1;
-		(out->nodes+i)->next=i-1;
+		(out->nodes+i)->next=i+1;
 	}
 }
 
 
 
-void* allocator_get(allocator_t* allocator,allocator_key_t key){
+void* allocator_get(allocator_t* allocator,allocator_key_t key,void** out){
 	allocator_index_t i=(allocator->size+1)>>1;
 	allocator_index_t j=i-1;
 	allocator_index_t k;
@@ -71,6 +71,9 @@ void* allocator_get(allocator_t* allocator,allocator_key_t key){
 	}
 	(allocator->nodes+j)->key_at_index=k;
 	node=allocator->nodes+k;
+	if (out){
+		*out=node->value;
+	}
 	node->key=key;
 	node->value=NULL;
 	node->next=allocator->first;
